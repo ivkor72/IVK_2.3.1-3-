@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:c="">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,5 +11,23 @@
         <h1 th:text="${msg}"></h1>
     </th:block>
 </div>
+<br>
+<br>
+<table>
+    <tr>
+        <th>id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>e-mail</th>
+    </tr>
+    <c:forEach var="user" items="${users}">
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.email}</td>
+        </tr>
+    </c:forEach>
+</table>
 </body>
 </html>
