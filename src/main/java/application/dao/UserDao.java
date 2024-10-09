@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface UserDao {
 
-    List<User> getAllUsers();
+   public List<User> getAllUsers();
+
+   public void saveUser(User user);
 }

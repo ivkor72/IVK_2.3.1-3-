@@ -25,7 +25,11 @@ public class UserDaoImpl implements UserDao {
     public List<User> getAllUsers() {
 
         return   em.createQuery("from User", User.class).getResultList();
+    }
 
-
+    @Override
+    public void saveUser(User user) {
+        em.persist(user);
+        em.flush();
     }
 }

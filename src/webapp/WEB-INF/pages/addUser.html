@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:form="">
+<head>
+    <meta charset="UTF-8">
+    <title>Please add new user</title>
+</head>
+<body>
+<h2>Please add new user</h2>
+<br>
+<br>
+<form:form action="saveUser" modelAttribute="user">
+
+  Name <form:input path="firstName"/>
+  <br>
+  <br>
+  Last name <form:input path="lastName"/>
+  <br>
+  <br>
+  E-mail <form:input path="email"/>
+  <br>
+  <br>
+  <form:input type="button" value="OK" />
+
+</form:form>
+</body>
+</html>

@@ -2,7 +2,14 @@ package web.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.ServletContext;
+
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+//    @Override
+//    public void onStartup (ServletContext servletContext) {
+//
+//    }
 
     // Метод, указывающий на класс конфигурации
     @Override
