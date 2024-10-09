@@ -2,7 +2,7 @@ package application.config;
 
 
 import application.model.User;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -37,17 +37,12 @@ public class AppConfig {
     @Bean
     public DataSource getDataSource() throws PropertyVetoException {
 
-        ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setDriverClass(env.getProperty("db.driver"));
-        dataSource.setJdbcUrl(env.getProperty("db.url"));
-        dataSource.setUser(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
 
-  //      DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(env.getProperty("db.driver"));
-//        dataSource.setUrl(env.getProperty("db.url"));
-//        dataSource.setUsername(env.getProperty("db.username"));
-//        dataSource.setPassword(env.getProperty("db.password"));
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getProperty("db.driver"));
+        dataSource.setUrl(env.getProperty("db.url"));
+        dataSource.setUsername(env.getProperty("db.username"));
+        dataSource.setPassword(env.getProperty("db.password"));
 
         return dataSource;
     }
