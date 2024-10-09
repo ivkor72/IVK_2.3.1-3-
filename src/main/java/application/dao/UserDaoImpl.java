@@ -14,13 +14,16 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
 
 
-    @PersistenceContext
+
     public EntityManager em;
 
+    @PersistenceContext
+    public void setEntityManager(EntityManager entityManager) {
+        this.em = entityManager;
+    }
 
-    private UserDao userDao;
 
-    @Transactional
+
     @Override
     public List<User> getAllUsers() {
 

@@ -1,4 +1,4 @@
-package web.controller;
+package application.controller;
 
 import application.model.User;
 import application.service.UserService;
@@ -15,8 +15,12 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-//	@Autowired
-//	private UserService userService;
+
+	private UserService userService;
+
+	public IndexController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@GetMapping(value = "/")
 	public String showAllUsers(ModelMap model) {
@@ -24,8 +28,9 @@ public class IndexController {
 		messages.add("Hello!");
 		messages.add("All Users");
 		model.addAttribute("messages", messages);
-//		List<User> allUsers = userService.getAllUsers();
-//		model.addAttribute("user", allUsers);
+		List<User> allUsers = userService.getAllUsers();
+		System.out.println(allUsers);
+		model.addAttribute("user", allUsers);
 		return "index";
 	}
 

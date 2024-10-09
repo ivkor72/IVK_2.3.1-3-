@@ -35,33 +35,42 @@ public class AppConfig {
     private Environment env;
 
     @Bean
-    public DataSource getDataSource() throws PropertyVetoException {
-
-
+    public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("db.driver"));
         dataSource.setUrl(env.getProperty("db.url"));
         dataSource.setUsername(env.getProperty("db.username"));
         dataSource.setPassword(env.getProperty("db.password"));
-
         return dataSource;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws PropertyVetoException {
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-        emf.setDataSource(getDataSource());
-        emf.setPackagesToScan("application.model");
-        emf.setJpaVendorAdapter(vendorAdapter);
-        return emf;
+    public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+        JpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+
+        entityManagerFactory.setJpaVendorAdapter(adapter);
+        entityManagerFactory.setDataSource(getDataSource());
+        entityManagerFactory.setPersistenceUnitName("myJpaPersistenceUnit");
+        entityManagerFactory.setPackagesToScan("application.model");
+        entityManagerFactory.setJpaProperties(hibernateProperties());
+        return entityManagerFactory;
+    }
+
+    private Properties hibernateProperties() {
+        Properties properties = new Properties();
+        properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        return properties;
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
-        return transactionManager;
+    public PlatformTransactionManager getTransactionManager() {
+        JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(getEntityManagerFactory().getObject());
+        return txManager;
     }
+
 
 }
