@@ -19,15 +19,27 @@
         <th>First name</th>
         <th>Last name</th>
         <th>e-mail</th>
+        <th>Operations</th>
     </tr>
-    <c:forEach var="user" items="${users}">
+    <div th:each="user : ${users}">
+
         <tr>
-            <td>${user.id}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.email}</td>
+            <td><a th:text="${user.id}">user</a></td>
+            <td><a th:text="${user.firstName}">user</a></td>
+            <td><a th:text="${user.lastName}">user</a></td>
+            <td><a th:text="${user.email}">user</a></td>
+            <td>
+                <form th:action="@{/updateUser}">
+                    <button type="submit" th:name="userId" th:value="${user.id}">Update</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/deleteUser}">
+                    <button type="submit"  th:name="userId" th:value="${user.id}">Delete</button>
+                </form>
+            </td>
         </tr>
-    </c:forEach>
+    </div>
 </table>
 <br>
 <br>

@@ -32,7 +32,24 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void saveUser(User user) {
-        em.persist(user);
+       if (user.getId() == 0) {
+            em.persist(user);
+        } else {
+            em.merge(user);
+        }
+        em.flush();
+    }
+
+    @Override
+    public User getUser(int id) {
+        User user = em.find(User.class, id);
+        return user;
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        User user = em.find(User.class, id);
+        em.remove(user);
         em.flush();
     }
 }

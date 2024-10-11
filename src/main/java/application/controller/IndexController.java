@@ -4,10 +4,12 @@ import application.model.User;
 import application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +31,8 @@ public class IndexController {
 		messages.add("All Users");
 		model.addAttribute("messages", messages);
 		List<User> allUsers = userService.getAllUsers();
-		System.out.println(allUsers);
-		model.addAttribute("user", allUsers);
+		System.out.println("All Users: " + allUsers);
+		model.addAttribute("users", allUsers);
 		return "index";
 	}
 
@@ -43,7 +45,20 @@ public class IndexController {
 
 	@RequestMapping(value = "/saveUser")
 	public String saveUser(@ModelAttribute("user") User user) {
-//		userService.saveUser(user);
+		userService.saveUser(user);
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/updateUser")
+	public String updateUser(@RequestParam("userId") int id, Model model) {
+		User user = userService.getUser(id);
+		model.addAttribute("user", user);
+		return "addUser";
+	}
+
+	@RequestMapping(value = "/deleteUser")
+	public String deleteUser(@RequestParam("userId") int id, Model model) {
+		 userService.deleteUser(id);
 		return "redirect:/";
 	}
 }
