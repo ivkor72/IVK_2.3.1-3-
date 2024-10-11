@@ -7,7 +7,7 @@
     <title> Add or update user</title>
 </head>
 <body>
-<h2>Please add new user</h2>
+<h2 th:text="${message}"></h2>
 <br>
 <br>
 <form th:method="POST" th:action="@{/saveUser}" th:object="${user}">

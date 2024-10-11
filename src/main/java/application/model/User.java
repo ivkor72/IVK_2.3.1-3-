@@ -3,14 +3,12 @@ package application.model;
 
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
-
 import javax.persistence.Entity;
 
 @Transactional
 @Entity
 @Table(name = "users_table")
 public class User {
-
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
